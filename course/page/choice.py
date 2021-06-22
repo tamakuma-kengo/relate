@@ -398,6 +398,10 @@ class ChoiceQuestion(ChoiceQuestionBase):
 
     def correct_answer(self, page_context, page_data, answer_data, grade_data):
         corr_idx = self.unpermuted_correct_indices()[0]
+        """result = (string_concat(_("A correct answer is"), ": '%s'.")
+                % self.process_choice_string(
+                    page_context,
+                    self.choices[corr_idx].text))"""
         result = (string_concat(_("A correct answer is"), ": '%s'.")
                 % self.process_choice_string(
                     page_context,
