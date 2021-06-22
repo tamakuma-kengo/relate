@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "blueimp-tmpl": "^3.11.0",
-    "bootstrap": "^5.0.1",
+    "bootstrap": "^3.4.1",
     "codemirror": "^5.58.2",
     "datatables-i18n": "git+https://github.com/dzhuang/datatables-i18n.git",
     "datatables.net": "^1.10.22",
