@@ -676,7 +676,7 @@ class MultipleChoiceQuestion(ChoiceQuestionBase):
         corr_idx_list = self.unpermuted_correct_indices()
         always_correct_idx_list = self.unpermuted_always_correct_indices()
 
-        result = (string_concat(_("The correct answer is"), ": %s")
+        result = (string_concat(_("正解は"), ": %s")
                     % self.get_answer_html(page_context, corr_idx_list))
 
         if len(always_correct_idx_list) > 0:

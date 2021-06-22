@@ -4,11 +4,12 @@
 {% block content %}
   {% block cover %}
   <div class="jumbotron">
-    <h1>{% blocktrans with RELATE=relate_site_name %} Welcome to {{ RELATE }} {% endblocktrans %}</h1>
-    <p>{% trans "RELATE is an Environment for Learning And TEaching" %}</p>
-    <p>
+    <h1>{% blocktrans with RELATE=relate_site_name %} 数理工学習支援システム {% endblocktrans %}</h1>
+    <p>{% trans "このサイトでは数理工の自主学習、確認テストを行うことができます" %}</p>
+    <hr>
+    <!--<p>
     <a class="btn btn-lg btn-primary" href="https://github.com/inducer/relate" role="button">{% trans "Learn more" %} &raquo;</a>
-    </p>
+    </p>-->
   </div>
   {% endblock %}
   {% block course_list %}
@@ -20,7 +21,7 @@
           <div class="col-md-4">
             <h3>{{course.number}} {{course.time_period}}</h3>
             <p>{{course.name}}</p>
-            <p><a class="btn btn-default" href="{% url 'relate-course_page' course.identifier %}" role="button">{% trans "View" %} &raquo;</a></p>
+            <p><a class="btn btn-lg btn-primary" href="{% url 'relate-course_page' course.identifier %}" role="button">{% trans "View" %} &raquo;</a></p>
           </div>
         {% endfor %}
       </div>

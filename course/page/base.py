@@ -236,9 +236,9 @@ def get_auto_feedback(correctness):
             gettext_noop("No information on correctness of answer."))
 
     if correctness == 0:
-        return str(gettext_noop("Your answer is not correct."))
+        return str(gettext_noop("不正解です。テスト終了後にもう一度学習してみよう！"))
     elif correctness == 1:
-        return str(gettext_noop("Your answer is correct."))
+        return str(gettext_noop("正解です！その調子！"))
     elif correctness > 1:
         return str(
                 string_concat(
