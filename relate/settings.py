@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     "jsonfield",
     "django_select2",
     'djangobower',
+    'bootstrap3',
 
     # message queue
     "django_celery_results",

@@ -10,6 +10,7 @@
         role="button" target="_blank">{% trans "Change" context "change the visibility of a course" %}&nbsp;&raquo;</a>
     </div>
   {% endif %}
+
   {% if not user.is_authenticated %}
     <div class="well">
       {% trans "You're not currently signed in." %}
