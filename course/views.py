@@ -46,6 +46,7 @@ from django.utils.translation import (
         )
 from django.utils.functional import lazy
 from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.models import User
 
 from django_select2.forms import Select2Widget
 
@@ -98,6 +99,7 @@ if TYPE_CHECKING:
 
 NONE_SESSION_TAG = string_concat("<<<", _("NONE"), ">>>")  # noqa
 
+#usernameの取得と表示
 
 # {{{ home
 
@@ -107,6 +109,51 @@ def home(request):
 
     current_courses = []
     past_courses = []
+    
+
+    def csvreader():
+        csv_data = list()
+        sublist = list()
+        files = glob.glob("./csvfiles/*")
+        for filename in files:
+            with open(filename) as f:
+                csv_open = csv.reader(f, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)
+                header = next(csv_open)
+                for row in csv_open:
+                    sublist.append(row[3])
+                    sublist.append(filename.replace("./csvfiles\\grades-",""))
+                    row[3] = sublist
+                    csv_data.append(row)
+                    sublist = []
+            f.close()
+        
+        csv_dict = defaultdict(list)
+        for i in range(len(csv_data)):
+            csv_dict[csv_data[i][0]].append(csv.data[i][3])
+        return csv_dict
+    
+    def analyzer():
+        csv_dict = csvreader()
+        username = request.user
+        count = 0
+        nigate_list = list()
+
+        for k,v in csv_dict.items():
+            if k == username:
+                if float(v[count][0]) < 80.0:
+                    nigate_list.append(v[count][1])
+            count += 1
+        
+        if len(nigate_list) != 0:
+            nigate_dict={}
+            for i in range(len(nigate_list)):
+                nigate_dict[i] = nigate_list[0]
+            context = {
+                'score' = nigatedict,
+            }
+            return context
+    
+
     for course in Course.objects.filter(listed=True):
         participation = get_participation_for_request(request, course)
 
@@ -134,11 +181,17 @@ def home(request):
     past_courses.sort(key=course_sort_key_minor)
     current_courses.sort(key=course_sort_key_major, reverse=True)
     past_courses.sort(key=course_sort_key_major, reverse=True)
-
+    """
     return render(request, "course/home.html", {
         "current_courses": current_courses,
         "past_courses": past_courses,
         })
+    """
+    return render(request, "course/home.html", analyzer(),{
+        "current_courses": current_courses,
+        "past_courses": past_courses,
+        })
+    
 
 # }}}
 
@@ -1411,7 +1464,6 @@ class EditCourseForm(StyledModelForm):
         model = Course
         exclude = (
                 "participants",
-                "trusted_for_markup",
                 )
         widgets = {
                 "start_date": DateTimePicker(options={"format": "YYYY-MM-DD"}),
