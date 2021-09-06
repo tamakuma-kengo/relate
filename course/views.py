@@ -144,15 +144,13 @@ def home(request):
     def analyzer():
         csv_dict = csvreader()
         username = request.user
-        count = 0
         nigate_list = list()
 
         for k,v in csv_dict.items():
             if k == username:
-                if float(v[count][0]) < 80.0:
-                    nigate_list.append(v[count][1])
-            count += 1
-        
+                for count in range(len(v)):
+                    if float(v[count][0]) < 80.0:
+                        nigate_list.append(v[count][1])
         return nigate_list
     
 
