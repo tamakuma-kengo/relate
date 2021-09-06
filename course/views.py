@@ -52,6 +52,7 @@ from django.contrib.auth.decorators import login_required
 
 import glob
 from collections import defaultdict
+import csv
 
 
 
@@ -137,7 +138,7 @@ def home(request):
         
         csv_dict = defaultdict(list)
         for i in range(len(csv_data)):
-            csv_dict[csv_data[i][0]].append(csv.data[i][3])
+            csv_dict[csv_data[i][0]].append(csv_data[i][3])
         return csv_dict
     
     def analyzer():
@@ -152,11 +153,7 @@ def home(request):
                     nigate_list.append(v[count][1])
             count += 1
         
-        if len(nigate_list) != 0:
-            nigate_dict={}
-            for i in range(len(nigate_list)):
-                nigate_dict[i] = nigate_list[0]
-            return nigate_dict
+        return nigate_list
     
 
     for course in Course.objects.filter(listed=True):
