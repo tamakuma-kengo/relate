@@ -118,11 +118,13 @@ def home(request):
 
     current_courses = []
     past_courses = []
+    nigate_list = []
     
 
     def csvreader():
         csv_data = list()
         sublist = list()
+        
         files = glob.glob("./csvfiles/*")
         for filename in files:
             with open(filename) as f:
@@ -141,9 +143,10 @@ def home(request):
             csv_dict[csv_data[i][0]].append(csv_data[i][3])
         return csv_dict
     
+
     def analyzer():
         csv_dict = csvreader()
-        username = request.user
+        username = request.user.username
         nigate_list = list()
 
         for k,v in csv_dict.items():
@@ -181,6 +184,8 @@ def home(request):
     past_courses.sort(key=course_sort_key_minor)
     current_courses.sort(key=course_sort_key_major, reverse=True)
     past_courses.sort(key=course_sort_key_major, reverse=True)
+
+    nigate_list = analyzer()
     """
     return render(request, "course/home.html", {
         "current_courses": current_courses,
@@ -190,7 +195,7 @@ def home(request):
     return render(request, "course/home.html",{
         "current_courses": current_courses,
         "past_courses": past_courses,
-        "score" : analyzer(),
+        "score" : nigate_list,
         })
     
 
