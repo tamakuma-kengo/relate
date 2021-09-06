@@ -46,7 +46,15 @@ from django.utils.translation import (
         )
 from django.utils.functional import lazy
 from django.contrib.auth.decorators import login_required
-#from django.contrib.auth.models import User
+
+
+
+
+import glob
+from collections import defaultdict
+
+
+
 
 from django_select2.forms import Select2Widget
 
@@ -148,10 +156,7 @@ def home(request):
             nigate_dict={}
             for i in range(len(nigate_list)):
                 nigate_dict[i] = nigate_list[0]
-            context = {
-                'score' = nigatedict,
-            }
-            return context
+            return nigate_dict
     
 
     for course in Course.objects.filter(listed=True):
@@ -187,9 +192,10 @@ def home(request):
         "past_courses": past_courses,
         })
     """
-    return render(request, "course/home.html", analyzer(),{
+    return render(request, "course/home.html",{
         "current_courses": current_courses,
         "past_courses": past_courses,
+        "score" : analyzer(),
         })
     
 
