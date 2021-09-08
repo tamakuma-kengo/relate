@@ -381,6 +381,14 @@ urlpatterns = [
          name="relate-view_start_flow"),
     re_path(r"^course"
         "/" + COURSE_ID_REGEX
+         + "/flow"
+         "/" + "11seqence"
+         + "/start"
+         "/$",
+         course.flow.view_start_flow,
+         name="relate-view_back_flow"),
+    re_path(r"^course"
+        "/" + COURSE_ID_REGEX
          + "/flow-session"
          "/(?P<flow_session_id>[-0-9]+)"
          "/resume"

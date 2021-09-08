@@ -50,13 +50,12 @@ from django.utils.functional import lazy
 from django.contrib.auth.decorators import login_required
 
 
-""""
+
 
 import glob
 import csv
 from collections import defaultdict
-"""
-import csv_sample
+
 
 
 
@@ -151,15 +150,8 @@ def home(request):
     current_courses.sort(key=course_sort_key_major, reverse=True)
     past_courses.sort(key=course_sort_key_major, reverse=True)
 
-    nigate_list = csv_sample.analyzer(request)
 
-    return render(request, "course/home.html",{
-        "current_courses": current_courses,
-        "past_courses": past_courses,
-        "score" : nigate_list,
-        })
 
-    """
     def csvreader():
         csv_data = list()
         sublist = list()
@@ -194,7 +186,16 @@ def home(request):
                     if float(v[count][0]) < 80.0:
                         nigate_list.append(v[count][1])
         return nigate_list
-    """
+
+
+    nigate_list = analyzer()
+
+    return render(request, "course/home.html",{
+        "current_courses": current_courses,
+        "past_courses": past_courses,
+        "score" : nigate_list,
+        })
+
 
     
 

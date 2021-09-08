@@ -54,8 +54,8 @@ INSTALLED_APPS = (
     "crispy_forms",
     "jsonfield",
     "django_select2",
-    'djangobower',
-    'bootstrap3',
+    #'djangobower',
+    #'bootstrap3',
 
     # message queue
     "django_celery_results",
@@ -137,12 +137,12 @@ SOCIAL_AUTH_PIPELINE = (
     "course.auth.social_set_user_email_verified",
 )
 
-
+"""
 BOWER_INSTALLED_APPS = (
     'jquery#1.9',
     'underscore',
 )
-
+"""
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = [
         "username", "first_name", "last_name", "email"]
