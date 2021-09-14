@@ -155,7 +155,7 @@ LOGIN_ERROR_URL = "/"
 
 STATICFILES_FINDERS = tuple(STATICFILES_FINDERS) + (
     "npm.finders.NpmFinder",
-    'djangobower.finders.BowerFinder',
+    #'djangobower.finders.BowerFinder',
     )
 
 CODEMIRROR_PATH = "codemirror"
