@@ -50,13 +50,13 @@ from django.utils.functional import lazy
 from django.contrib.auth.decorators import login_required
 
 
-
+"""
 
 import glob
 import csv
 from collections import defaultdict
 
-
+"""
 
 
 from django_select2.forms import Select2Widget
@@ -150,8 +150,13 @@ def home(request):
     current_courses.sort(key=course_sort_key_major, reverse=True)
     past_courses.sort(key=course_sort_key_major, reverse=True)
 
+    return render(request, "course/home.html",{
+        "current_courses": current_courses,
+        "past_courses": past_courses,
+    })
 
 
+"""
     def csvreader():
         csv_data = list()
         sublist = list()
@@ -189,12 +194,7 @@ def home(request):
 
 
     nigate_list = analyzer()
-
-    return render(request, "course/home.html",{
-        "current_courses": current_courses,
-        "past_courses": past_courses,
-        "score" : nigate_list,
-        })
+"""
 
 
     
