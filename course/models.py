@@ -86,104 +86,86 @@ def validate_course_specific_language(value):
 
 class Course(models.Model):
     identifier = models.CharField(max_length=200, unique=True,
-            help_text=_("A course identifier. Alphanumeric with dashes, "
-            "no spaces. This is visible in URLs and determines the location "
-            "on your file system where the course's git repository lives. "
-            "This should <em>not</em> be changed after the course has been created "
-            "without also moving the course's git on the server."),
-            verbose_name=_("Course identifier"),
+            help_text=_("コースの識別子です。 半角英数字と-(ハイフン)で入力してください。 "
+            "空白や'(ダッシュ)などの記号を含まないでください。 "),
+            verbose_name=_("コース識別子"),
             db_index=True,
             validators=[
                 RegexValidator(
                     "^"+COURSE_ID_REGEX+"$",
                     message=_(
-                        "Identifier may only contain letters, "
-                        "numbers, and hyphens ('-').")),
+                        "識別子には半角英数字、ハイフンのみを使用してください。 "
+                        "ハイフン以外の記号は使用しないでください。")),
                     ]
             )
     name = models.CharField(
             null=True, blank=False,
             max_length=200,
-            verbose_name=_("Course name"),
-            help_text=_("A human-readable name for the course. "
-                "(e.g. 'Numerical Methods')"))
+            verbose_name=_("コース名"),
+            help_text=_("コース名を入力してください。日本語、記号およびスペースを使用できます。 "
+                "（例）リーマン和　定積分"))
     number = models.CharField(
             null=True, blank=False,
             max_length=200,
-            verbose_name=_("Course number"),
-            help_text=_("A human-readable course number/ID "
-                "for the course (e.g. 'CS123')"))
+            verbose_name=_("コース番号"),
+            help_text=_("コース番号を入力してください。日本語、記号およびスペースを使用できます。 "
+                "（例）第１週目"))
     time_period = models.CharField(
             null=True, blank=False,
             max_length=200,
-            verbose_name=_("Time Period"),
-            help_text=_("A human-readable description of the "
-                "time period for the course (e.g. 'Fall 2014')"))
+            verbose_name=_("年月"),
+            help_text=_("年月を入力してください。 "
+                "（例）2021年9月"))
 
     start_date = models.DateField(
-            verbose_name=_("Start date"),
+            verbose_name=_("開始日"),
             null=True, blank=True)
     end_date = models.DateField(
-            verbose_name=_("End date"),
+            verbose_name=_("終了日"),
             null=True, blank=True)
 
     hidden = models.BooleanField(
             default=True,
-            help_text=_("Is the course only accessible to course staff?"),
-            verbose_name=_("Only visible to course staff"))
+            help_text=_("チェックをオンにすることで、コーススタッフのみ閲覧可能になります。"),
+            verbose_name=_("コース内のスタッフのみ閲覧可能にする"))
     listed = models.BooleanField(
             default=True,
-            help_text=_("Should the course be listed on the main page?"),
-            verbose_name=_("Listed on main page"))
+            help_text=_("チェックをオンにすることで、コースを選択する画面に表示されます。"),
+            verbose_name=_("メインページ（はじめの画面）に掲載する"))
     accepts_enrollment = models.BooleanField(
             default=True,
-            verbose_name=_("Accepts enrollment"))
+            verbose_name=_("コースの参加・追加を許可する"))
 
     git_source = models.CharField(max_length=200, blank=False,
-            help_text=_("A Git URL from which to pull course updates. "
-            "If you're just starting out, enter "
-            "<tt>git://github.com/inducer/relate-sample</tt> "
-            "to get some sample content."),
-            verbose_name=_("git source"))
+            help_text=_("Gitコンテンツが置いてあるフォルダの場所を入力してください。"),
+            verbose_name=_("git ソース"))
     ssh_private_key = models.TextField(blank=True,
-            help_text=_("An SSH private key to use for Git authentication. "
-            "Not needed for the sample URL above."
-            "You may use <a href='/generate-ssh-key'>this tool</a> to generate "
-            "a key pair."),
-            verbose_name=_("SSH private key"))
+            help_text=_("Gitの認証に使用するSSH秘密鍵です。基本的には入力しなくてもOKです。 "),
+            verbose_name=_("SSH秘密鍵"))
     course_root_path = models.CharField(max_length=200, blank=True,
             help_text=_(
-                "Subdirectory <em>within</em> the git repository to use as "
-                "course root directory. Not required, and usually blank. "
-                "Use only if your course content lives in a subdirectory "
-                "of your git repository. "
-                "Should not include trailing slash."),
-            verbose_name=_("Course root in repository"))
+                "Gitリポジトリの中にあるサブディレクトリを、コースとして利用する場合に入力します。 "
+                "基本的には入力しなくてもOKです。 "
+                "ディレクトリの最後の/（スラッシュ）は含めないでください。"),
+            verbose_name=_("リポジトリ内のコースのルート"))
 
     course_file = models.CharField(max_length=200,
             default="course.yml",
-            help_text=_("Name of a YAML file in the git repository that "
-            "contains the root course descriptor."),
-            verbose_name=_("Course file"))
+            help_text=_("コースを記述したyamlファイルの名前を入力してください。 "),
+            verbose_name=_("コースファイル"))
     events_file = models.CharField(max_length=200,
             default="events.yml",
-            help_text=_("Name of a YAML file in the git repository that "
-            "contains calendar information."),
-            verbose_name=_("Events file"))
+            help_text=_("カレンダーの情報を記述したyamlファイルの名前を入力してください。 "),
+            verbose_name=_("イベントファイル"))
 
     enrollment_approval_required = models.BooleanField(
             default=False,
-            help_text=_("If set, each enrolling student must be "
-            "individually approved."),
-            verbose_name=_("Enrollment approval required"))
+            help_text=_("チェックをオンにすることで、生徒がコースへの参加を行う際に承認が必要となります。 "),
+            verbose_name=_("コース参加の承認を行う"))
     preapproval_require_verified_inst_id = models.BooleanField(
             default=True,
-            help_text=_("If set, students cannot get participation "
-                        "preapproval using institutional ID if "
-                        "the institutional ID they provided is not "
-                        "verified."),
-            verbose_name=_("Prevent preapproval by institutional ID if not "
-                           "verified?"))
+            help_text=_("チェックをオンにすることで、学生の機関ＩＤが検出されない場合に、機関ＩＤを使用したコース参加の事前承認を得ることができなくなります。 "),
+            verbose_name=_("認証されていない場合、機関IDによる事前承認を防ぐ"))
     enrollment_required_email_suffix = models.CharField(
             max_length=200, blank=True, null=True,
             help_text=_("Enrollee's email addresses must end in the "
