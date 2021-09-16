@@ -114,9 +114,10 @@
 
   {% if grade_info.points_percent < 80.0 %}
     <div class="back flow-back">
+        <p>テストが難しかった場合は、こちらから一度復習してみましょう！</p>
         <a class="btn btn-default"
         href="{% url "relate-view_back_flow" course.identifier %}"
-        role="button">&laquo; {% trans "関連項目" %}</a>
+        role="button">&laquo; {% trans "復習を始める" %}</a>
     </div>
   {% endif %}
 
