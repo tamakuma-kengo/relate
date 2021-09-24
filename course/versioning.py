@@ -175,7 +175,7 @@ class CourseCreationForm(StyledModelForm):
         super(CourseCreationForm, self).__init__(*args, **kwargs)
 
         self.helper.add_input(
-                Submit("submit", _("Validate and create")))
+                Submit("submit", _("作成")))
 
 
 @permission_required("course.add_course")
@@ -296,7 +296,7 @@ def set_up_new_course(request):
         form = CourseCreationForm()
 
     return render(request, "generic-form.html", {
-        "form_description": _("Set up new course"),
+        "form_description": _("新規コースの作成"),
         "form": form
         })
 

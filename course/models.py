@@ -168,28 +168,26 @@ class Course(models.Model):
             verbose_name=_("認証されていない場合、機関IDによる事前承認を防ぐ"))
     enrollment_required_email_suffix = models.CharField(
             max_length=200, blank=True, null=True,
-            help_text=_("Enrollee's email addresses must end in the "
-            "specified suffix, such as '@illinois.edu'."),
-            verbose_name=_("Enrollment required email suffix"))
+            help_text=_("参加するために必要なEメールの末尾を入力してください。指定しない場合は入力しなくてもOKです。 "
+            "（例）@planet.kanazawa-it.ac.jp"),
+            verbose_name=_("参加に必要なEメール末尾の入力"))
 
     from_email = models.EmailField(
             # Translators: replace "RELATE" with the brand name of your
             # website if necessary.
-            help_text=_("This email address will be used in the 'From' line "
-            "of automated emails sent by RELATE."),
-            verbose_name=_("From email"))
+            help_text=_("ここに入力したメールアドレスは、本システムが自動送信するメールの「From」欄に使用されます。"),
+            verbose_name=_("自動メールの差出アドレス"))
 
     notify_email = models.EmailField(
-            help_text=_("This email address will receive "
-            "notifications about the course."),
-            verbose_name=_("Notify email"))
+            help_text=_("ここに入力したメールアドレスは、コースに関する通知が届きます。"),
+            verbose_name=_("メールへの通知"))
 
     force_lang = models.CharField(max_length=200, blank=True, null=True,
             default="",
             validators=[validate_course_specific_language],
             help_text=_(
-                "Which language is forced to be used for this course."),
-            verbose_name=_("Course language forcibly used"))
+                "使用される言語の選択を行います。"),
+            verbose_name=_("コースの言語"))
 
     # {{{ XMPP
 
