@@ -374,7 +374,7 @@ urlpatterns = [
     re_path(r"^course"
         "/" + COURSE_ID_REGEX
          + "/flow"
-         "/" + FLOW_ID_REGEX
+         "/"  + FLOW_ID_REGEX
          + "/start"
          "/$",
          course.flow.view_start_flow,
