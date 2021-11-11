@@ -114,6 +114,10 @@
 
   {% if grade_info.points_percent < 80.0 %}
     <div class="back flow-back">
+        <p>{{ grade_info.points_percent }}</p>
+        <p>{{ user }}</p>
+        <p>{{ start_time }}</p>
+        <p>{{ state }}</p>
         <p>テストが難しかった場合は、こちらから一度復習してみましょう！</p>
         <a class="btn btn-default"
         href="{% url "relate-view_back_flow" course.identifier %}"

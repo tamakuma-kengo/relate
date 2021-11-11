@@ -23,6 +23,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
+from django.contrib.auth.models import User
 
 from django.utils.translation import (
         gettext, gettext_lazy as _)
@@ -2741,6 +2742,9 @@ def finish_flow_session_view(pctx, flow_session_id):
         return render_finish_response(
                 "course/flow-completion-grade.html",
                 completion_text=completion_text,
+                user=request.user,
+                start_time=flow_session.start_time,
+                state=flow_session.completion_time,
                 grade_info=grade_info)
 
     else:
