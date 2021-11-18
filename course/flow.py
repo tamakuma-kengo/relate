@@ -87,6 +87,10 @@ from course.page import InvalidPageData
 from course.views import get_now_or_fake_time
 from relate.utils import retry_transaction_decorator
 
+
+from course.filemodules import csvwriter
+
+
 # {{{ mypy
 
 from typing import Any, Optional, Iterable, Sequence, Tuple, Text, List, FrozenSet, TYPE_CHECKING  # noqa
@@ -2738,6 +2742,8 @@ def finish_flow_session_view(pctx, flow_session_id):
 
         if flow_permission.cannot_see_flow_result in access_rule.permissions:
             grade_info = None
+        
+        csvwriter.csvwriter(request.user,flow_session.points/flow_session.max_points,flow_session.start_time,flow_session.completion_time)
 
         return render_finish_response(
                 "course/flow-completion-grade.html",
