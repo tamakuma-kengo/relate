@@ -11,7 +11,6 @@
   {% if grade_info != None %}
       {% if grade_info.total_count or grade_info.optional_total_count %}
           <h1>{% trans "Results" %}: {{flow_desc.title}}</h1>
-          <p>{{ grade_info.points_percent }}</p>
           <div class="well flow-well">
               {% if grade_info.total_count %}
                   <p>
